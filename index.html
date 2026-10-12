@@ -1,0 +1,1398 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7dce7">
+
+    <title>Gossip Girl Finance | Your Money, Your Rules</title>
+
+    <meta name="description"
+          content="Seu espaço pessoal para organizar dinheiro, metas, gastos e planejamento financeiro com estilo.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar" id="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">GG</div>
+
+                <div class="brand-text">
+                    <h2>Gossip Girl</h2>
+                    <span>FINANCE CLUB</span>
+                </div>
+            </div>
+
+            <div class="sidebar-label">YOUR PRIVATE CLUB</div>
+
+            <nav class="main-nav" aria-label="Menu principal">
+
+                <button class="nav-link active"
+                        data-page="dashboard"
+                        type="button">
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </button>
+
+                <button class="nav-link"
+                        data-page="transactions"
+                        type="button">
+                    <span class="nav-icon">↔</span>
+                    <span>Transações</span>
+                </button>
+
+                <button class="nav-link"
+                        data-page="spreadsheet"
+                        type="button">
+                    <span class="nav-icon">▤</span>
+                    <span>Planilhas</span>
+                </button>
+
+                <button class="nav-link"
+                        data-page="goals"
+                        type="button">
+                    <span class="nav-icon">♡</span>
+                    <span>Minhas metas</span>
+                </button>
+
+                <button class="nav-link"
+                        data-page="cards"
+                        type="button">
+                    <span class="nav-icon">▣</span>
+                    <span>Cartões</span>
+                </button>
+
+                <button class="nav-link"
+                        data-page="reports"
+                        type="button">
+                    <span class="nav-icon">◔</span>
+                    <span>Relatórios</span>
+                </button>
+
+                <button class="nav-link"
+                        data-page="extras"
+                        type="button">
+                    <span class="nav-icon">✧</span>
+                    <span>Calendário e extras</span>
+                </button>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="quote-card">
+                    <span class="quote-icon">✦</span>
+                    <p>She makes money moves.</p>
+                    <small>And she does it in style.</small>
+                    <span class="quote-signature">XOXO, Gossip Girl</span>
+                </div>
+
+                <button class="nav-link" id="exportData" type="button">
+                    <span class="nav-icon">↓</span>
+                    <span>Exportar meus dados</span>
+                </button>
+
+                <div class="privacy-note">
+                    <span>♡</span>
+                    Seus dados ficam salvos neste navegador.
+                </div>
+
+            </div>
+
+        </aside>
+
+        <!-- ÁREA PRINCIPAL -->
+        <main class="main-content">
+
+            <!-- CABEÇALHO -->
+            <header class="topbar">
+
+                <button class="menu-toggle"
+                        id="menuToggle"
+                        type="button"
+                        aria-label="Abrir menu"
+                        aria-expanded="false">
+                    ☰
+                </button>
+
+                <div class="breadcrumb">
+                    <span>GOSSIP GIRL</span>
+                    <span class="breadcrumb-divider">/</span>
+                    <span id="currentPageName">Dashboard</span>
+                </div>
+
+                <div class="topbar-actions">
+
+                    <div class="current-date" id="currentDate">
+                        Organize seu dinheiro
+                    </div>
+
+                    <button class="profile-button"
+                            type="button"
+                            aria-label="Perfil">
+                        GG
+                    </button>
+
+                </div>
+
+            </header>
+
+            <!-- ================= DASHBOARD ================= -->
+            <section class="page active" id="dashboard">
+
+                <div class="welcome-section">
+
+                    <div>
+                        <span class="eyebrow">YOUR MONEY, YOUR RULES ♡</span>
+
+                        <h1>Welcome to your <em>rich girl era.</em></h1>
+
+                        <p>
+                            Seu dinheiro, suas escolhas e uma vida financeira
+                            muito mais organizada.
+                        </p>
+                    </div>
+
+                    <button class="primary-button"
+                            type="button"
+                            data-open-page="transactions">
+                        <span>＋</span> Novo lançamento
+                    </button>
+
+                </div>
+
+                <!-- FILTRO DO MÊS -->
+                <div class="section-toolbar">
+
+                    <div>
+                        <h2>Seu resumo financeiro</h2>
+                        <p>Uma visão geral das suas finanças.</p>
+                    </div>
+
+                    <label class="month-selector">
+                        <span class="sr-only">Mês de referência</span>
+                        <input type="month"
+                               id="dashboardMonth"
+                               aria-label="Mês do dashboard">
+                    </label>
+
+                </div>
+
+                <!-- CARDS FINANCEIROS -->
+                <div class="summary-grid">
+
+                    <article class="summary-card balance-card">
+
+                        <div class="card-top">
+                            <span>Saldo do mês</span>
+                            <span class="card-icon">♡</span>
+                        </div>
+
+                        <h3 id="totalBalance">R$ 0,00</h3>
+
+                        <p>Receitas menos despesas</p>
+
+                        <div class="card-decoration">GG</div>
+
+                    </article>
+
+                    <article class="summary-card">
+
+                        <div class="card-top">
+                            <span>Receitas</span>
+                            <span class="card-icon income-icon">↗</span>
+                        </div>
+
+                        <h3 id="totalIncome">R$ 0,00</h3>
+
+                        <p>Dinheiro que entrou</p>
+
+                    </article>
+
+                    <article class="summary-card">
+
+                        <div class="card-top">
+                            <span>Despesas</span>
+                            <span class="card-icon expense-icon">↙</span>
+                        </div>
+
+                        <h3 id="totalExpenses">R$ 0,00</h3>
+
+                        <p>Dinheiro que saiu</p>
+
+                    </article>
+
+                    <article class="summary-card">
+
+                        <div class="card-top">
+                            <span>Dinheiro guardado</span>
+                            <span class="card-icon savings-icon">✧</span>
+                        </div>
+
+                        <h3 id="totalSaved">R$ 0,00</h3>
+
+                        <p>Nas suas metas financeiras</p>
+
+                    </article>
+
+                </div>
+
+                <!-- GRÁFICOS -->
+                <div class="dashboard-grid">
+
+                    <article class="panel chart-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Income & expenses</h2>
+                                <p>Como seu dinheiro está se movimentando.</p>
+                            </div>
+
+                            <span class="panel-decoration">✦</span>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="incomeExpenseChart"
+                                    aria-label="Gráfico de receitas e despesas"
+                                    role="img"></canvas>
+                        </div>
+
+                    </article>
+
+                    <article class="panel chart-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Para onde vai?</h2>
+                                <p>Distribuição das suas despesas.</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-container doughnut-container">
+                            <canvas id="categoryChart"
+                                    aria-label="Gráfico de despesas por categoria"
+                                    role="img"></canvas>
+                        </div>
+
+                        <div id="categoryLegend" class="category-legend"></div>
+
+                    </article>
+
+                </div>
+
+                <!-- LANÇAMENTOS RECENTES -->
+                <article class="panel recent-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h2>Últimas movimentações</h2>
+                            <p>Seus lançamentos mais recentes.</p>
+                        </div>
+
+                        <button class="text-button"
+                                type="button"
+                                data-open-page="transactions">
+                            Ver todas →
+                        </button>
+                    </div>
+
+                    <div class="table-wrapper">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th>Categoria</th>
+                                    <th>Data</th>
+                                    <th>Tipo</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="recentTransactions">
+
+                                <tr>
+                                    <td colspan="5" class="empty-state">
+                                        Nenhuma movimentação por enquanto.
+                                        Adicione seu primeiro lançamento! ♡
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </article>
+
+                <!-- METAS RESUMIDAS -->
+                <div class="dashboard-grid lower-grid">
+
+                    <article class="panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Dreams & goals</h2>
+                                <p>Seus sonhos merecem planejamento.</p>
+                            </div>
+
+                            <button class="text-button"
+                                    type="button"
+                                    data-open-page="goals">
+                                Ver metas →
+                            </button>
+                        </div>
+
+                        <div id="dashboardGoals" class="goal-list">
+
+                            <div class="empty-state">
+                                Nenhuma meta cadastrada ainda. ✧
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <article class="panel mini-budget">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Budget check</h2>
+                                <p>Seu orçamento mensal.</p>
+                            </div>
+                        </div>
+
+                        <div class="budget-total">
+                            <span>Limite de gastos</span>
+                            <strong id="budgetLimitDisplay">R$ 0,00</strong>
+                        </div>
+
+                        <div class="progress-track">
+                            <div class="progress-bar"
+                                 id="budgetProgress"></div>
+                        </div>
+
+                        <div class="budget-footer">
+                            <span id="budgetUsed">R$ 0,00 gastos</span>
+                            <span id="budgetPercentage">0%</span>
+                        </div>
+
+                        <button class="secondary-button full-width"
+                                type="button"
+                                data-open-page="extras">
+                            Configurar orçamento
+                        </button>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!-- ================= TRANSAÇÕES ================= -->
+            <section class="page" id="transactions">
+
+                <div class="page-heading">
+                    <span class="eyebrow">EVERY PENNY MATTERS ♡</span>
+                    <h1>Minhas <em>transações.</em></h1>
+                    <p>Registre tudo o que entra e sai da sua conta.</p>
+                </div>
+
+                <div class="content-grid">
+
+                    <article class="panel form-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Novo lançamento</h2>
+                                <p>Preencha as informações abaixo.</p>
+                            </div>
+                        </div>
+
+                        <form id="transactionForm">
+
+                            <div class="form-group">
+                                <label for="transactionDescription">
+                                    Descrição
+                                </label>
+
+                                <input type="text"
+                                       id="transactionDescription"
+                                       placeholder="Ex.: Salário, mercado..."
+                                       maxlength="100"
+                                       required>
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="transactionAmount">
+                                        Valor (R$)
+                                    </label>
+
+                                    <input type="number"
+                                           id="transactionAmount"
+                                           placeholder="0,00"
+                                           min="0.01"
+                                           step="0.01"
+                                           required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="transactionType">Tipo</label>
+
+                                    <select id="transactionType" required>
+                                        <option value="expense">Despesa</option>
+                                        <option value="income">Receita</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="transactionCategory">
+                                        Categoria
+                                    </label>
+
+                                    <select id="transactionCategory" required>
+                                        <option value="Salário">Salário</option>
+                                        <option value="Renda extra">Renda extra</option>
+                                        <option value="Moradia">Moradia</option>
+                                        <option value="Alimentação">Alimentação</option>
+                                        <option value="Transporte">Transporte</option>
+                                        <option value="Estudos">Estudos</option>
+                                        <option value="Beleza">Beleza</option>
+                                        <option value="Lazer">Lazer</option>
+                                        <option value="Compras">Compras</option>
+                                        <option value="Saúde">Saúde</option>
+                                        <option value="Contas">Contas</option>
+                                        <option value="Investimentos">Investimentos</option>
+                                        <option value="Outros">Outros</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="transactionDate">Data</label>
+
+                                    <input type="date"
+                                           id="transactionDate"
+                                           required>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transactionPayment">
+                                    Forma de pagamento
+                                </label>
+
+                                <select id="transactionPayment">
+                                    <option value="Pix">Pix</option>
+                                    <option value="Dinheiro">Dinheiro</option>
+                                    <option value="Débito">Débito</option>
+                                    <option value="Crédito">Crédito</option>
+                                    <option value="Transferência">
+                                        Transferência
+                                    </option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transactionNotes">
+                                    Observações (opcional)
+                                </label>
+
+                                <textarea id="transactionNotes"
+                                          rows="3"
+                                          maxlength="300"
+                                          placeholder="Algum detalhe importante..."></textarea>
+                            </div>
+
+                            <button class="primary-button full-width"
+                                    type="submit">
+                                Salvar lançamento ♡
+                            </button>
+
+                        </form>
+
+                    </article>
+
+                    <article class="panel transaction-summary">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Resumo</h2>
+                                <p>Movimentações do período.</p>
+                            </div>
+                        </div>
+
+                        <div class="simple-stat">
+                            <span>Total de receitas</span>
+                            <strong id="transactionIncome">R$ 0,00</strong>
+                        </div>
+
+                        <div class="simple-stat">
+                            <span>Total de despesas</span>
+                            <strong id="transactionExpenses">R$ 0,00</strong>
+                        </div>
+
+                        <div class="simple-stat">
+                            <span>Saldo</span>
+                            <strong id="transactionBalance">R$ 0,00</strong>
+                        </div>
+
+                        <div class="form-group filter-group">
+                            <label for="transactionFilterMonth">
+                                Filtrar por mês
+                            </label>
+
+                            <input type="month"
+                                   id="transactionFilterMonth">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="transactionFilterType">
+                                Tipo de movimentação
+                            </label>
+
+                            <select id="transactionFilterType">
+                                <option value="all">Todas</option>
+                                <option value="income">Receitas</option>
+                                <option value="expense">Despesas</option>
+                            </select>
+                        </div>
+
+                        <button class="secondary-button full-width"
+                                type="button"
+                                id="clearTransactionFilters">
+                            Limpar filtros
+                        </button>
+
+                    </article>
+
+                </div>
+
+                <article class="panel table-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h2>Histórico completo</h2>
+                            <p>Consulte e organize suas movimentações.</p>
+                        </div>
+
+                        <button class="secondary-button"
+                                type="button"
+                                id="exportTransactions">
+                            ↓ Exportar CSV
+                        </button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th>Categoria</th>
+                                    <th>Data</th>
+                                    <th>Pagamento</th>
+                                    <th>Tipo</th>
+                                    <th>Valor</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="transactionsTable">
+                                <tr>
+                                    <td colspan="7" class="empty-state">
+                                        Seus lançamentos aparecerão aqui. ♡
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!-- ================= PLANILHAS ================= -->
+            <section class="page" id="spreadsheet">
+
+                <div class="page-heading">
+                    <span class="eyebrow">PLAN YOUR WEALTH ✦</span>
+                    <h1>Minhas <em>planilhas.</em></h1>
+                    <p>Organize seu orçamento e veja os números com clareza.</p>
+                </div>
+
+                <div class="summary-grid three-columns">
+
+                    <article class="summary-card">
+                        <div class="card-top">
+                            <span>Receitas previstas</span>
+                            <span class="card-icon">↗</span>
+                        </div>
+                        <h3 id="plannedIncome">R$ 0,00</h3>
+                    </article>
+
+                    <article class="summary-card">
+                        <div class="card-top">
+                            <span>Despesas previstas</span>
+                            <span class="card-icon">↙</span>
+                        </div>
+                        <h3 id="plannedExpenses">R$ 0,00</h3>
+                    </article>
+
+                    <article class="summary-card">
+                        <div class="card-top">
+                            <span>Saldo planejado</span>
+                            <span class="card-icon">♡</span>
+                        </div>
+                        <h3 id="plannedBalance">R$ 0,00</h3>
+                    </article>
+
+                </div>
+
+                <article class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h2>Planejamento mensal</h2>
+                            <p>Compare seu orçamento previsto com o realizado.</p>
+                        </div>
+
+                        <label class="month-selector">
+                            <span class="sr-only">Mês da planilha</span>
+                            <input type="month" id="spreadsheetMonth">
+                        </label>
+                    </div>
+
+                    <form id="budgetForm" class="budget-form">
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+                                <label for="plannedIncomeInput">
+                                    Receita esperada (R$)
+                                </label>
+
+                                <input type="number"
+                                       id="plannedIncomeInput"
+                                       min="0"
+                                       step="0.01"
+                                       placeholder="0,00">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="plannedExpenseInput">
+                                    Limite de gastos (R$)
+                                </label>
+
+                                <input type="number"
+                                       id="plannedExpenseInput"
+                                       min="0"
+                                       step="0.01"
+                                       placeholder="0,00">
+                            </div>
+
+                        </div>
+
+                        <button class="primary-button" type="submit">
+                            Salvar orçamento
+                        </button>
+
+                    </form>
+
+                    <div class="table-wrapper budget-table-wrapper">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Planejado</th>
+                                    <th>Realizado</th>
+                                    <th>Diferença</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="budgetTable">
+                                <tr>
+                                    <td colspan="4" class="empty-state">
+                                        Seus dados aparecerão aqui.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!-- ================= METAS ================= -->
+            <section class="page" id="goals">
+
+                <div class="page-heading">
+                    <span class="eyebrow">DREAM IT. PLAN IT. SAVE IT. ♡</span>
+                    <h1>Meus <em>sonhos e metas.</em></h1>
+                    <p>Transforme seus objetivos em planos financeiros.</p>
+                </div>
+
+                <div class="content-grid">
+
+                    <article class="panel form-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Nova meta financeira</h2>
+                                <p>Todo grande sonho começa com um plano.</p>
+                            </div>
+                        </div>
+
+                        <form id="goalForm">
+
+                            <div class="form-group">
+                                <label for="goalName">Nome da meta</label>
+
+                                <input type="text"
+                                       id="goalName"
+                                       maxlength="80"
+                                       placeholder="Ex.: Faculdade, viagem..."
+                                       required>
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="goalTarget">
+                                        Valor desejado (R$)
+                                    </label>
+
+                                    <input type="number"
+                                           id="goalTarget"
+                                           min="0.01"
+                                           step="0.01"
+                                           required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="goalInitial">
+                                        Já guardado (R$)
+                                    </label>
+
+                                    <input type="number"
+                                           id="goalInitial"
+                                           min="0"
+                                           step="0.01"
+                                           value="0">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="goalDeadline">
+                                    Prazo (opcional)
+                                </label>
+
+                                <input type="date" id="goalDeadline">
+                            </div>
+
+                            <button class="primary-button full-width"
+                                    type="submit">
+                                Criar minha meta ♡
+                            </button>
+
+                        </form>
+
+                    </article>
+
+                    <article class="panel goals-overview">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Goal overview</h2>
+                                <p>O progresso dos seus objetivos.</p>
+                            </div>
+                        </div>
+
+                        <div class="simple-stat">
+                            <span>Metas criadas</span>
+                            <strong id="goalsCount">0</strong>
+                        </div>
+
+                        <div class="simple-stat">
+                            <span>Total desejado</span>
+                            <strong id="goalsTargetTotal">R$ 0,00</strong>
+                        </div>
+
+                        <div class="simple-stat">
+                            <span>Total acumulado</span>
+                            <strong id="goalsSavedTotal">R$ 0,00</strong>
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <div class="section-toolbar">
+                    <div>
+                        <h2>My dream list ✧</h2>
+                        <p>Acompanhe o progresso de cada objetivo.</p>
+                    </div>
+                </div>
+
+                <div id="goalsList" class="goals-grid">
+
+                    <div class="panel empty-state">
+                        Ainda não há metas por aqui. Qual vai ser a primeira?
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ================= CARTÕES ================= -->
+            <section class="page" id="cards">
+
+                <div class="page-heading">
+                    <span class="eyebrow">SPEND SMART, DARLING ♡</span>
+                    <h1>Meus <em>cartões.</em></h1>
+                    <p>Controle limites, faturas e compras parceladas.</p>
+                </div>
+
+                <div class="summary-grid three-columns">
+
+                    <article class="summary-card">
+                        <div class="card-top">
+                            <span>Limite total cadastrado</span>
+                            <span class="card-icon">▣</span>
+                        </div>
+                        <h3 id="cardsTotalLimit">R$ 0,00</h3>
+                    </article>
+
+                    <article class="summary-card">
+                        <div class="card-top">
+                            <span>Gastos no crédito</span>
+                            <span class="card-icon">↙</span>
+                        </div>
+                        <h3 id="cardsTotalSpent">R$ 0,00</h3>
+                    </article>
+
+                    <article class="summary-card">
+                        <div class="card-top">
+                            <span>Limite restante</span>
+                            <span class="card-icon">♡</span>
+                        </div>
+                        <h3 id="cardsAvailable">R$ 0,00</h3>
+                    </article>
+
+                </div>
+
+                <div class="content-grid">
+
+                    <article class="panel form-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Cadastrar cartão</h2>
+                                <p>Cadastre apenas as informações necessárias.</p>
+                            </div>
+                        </div>
+
+                        <form id="cardForm">
+
+                            <div class="form-group">
+                                <label for="cardName">Nome do cartão</label>
+
+                                <input type="text"
+                                       id="cardName"
+                                       maxlength="50"
+                                       placeholder="Ex.: Cartão principal"
+                                       required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cardLimit">Limite (R$)</label>
+
+                                <input type="number"
+                                       id="cardLimit"
+                                       min="0"
+                                       step="0.01"
+                                       required>
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="cardClosingDay">
+                                        Dia de fechamento
+                                    </label>
+
+                                    <input type="number"
+                                           id="cardClosingDay"
+                                           min="1"
+                                           max="31"
+                                           placeholder="Ex.: 10">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cardDueDay">
+                                        Dia de vencimento
+                                    </label>
+
+                                    <input type="number"
+                                           id="cardDueDay"
+                                           min="1"
+                                           max="31"
+                                           placeholder="Ex.: 17">
+                                </div>
+
+                            </div>
+
+                            <button class="primary-button full-width"
+                                    type="submit">
+                                Adicionar cartão ♡
+                            </button>
+
+                        </form>
+
+                    </article>
+
+                    <article class="panel form-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Registrar compra</h2>
+                                <p>Controle os gastos no crédito.</p>
+                            </div>
+                        </div>
+
+                        <form id="cardPurchaseForm">
+
+                            <div class="form-group">
+                                <label for="purchaseCard">Cartão</label>
+
+                                <select id="purchaseCard" required>
+                                    <option value="">Cadastre um cartão primeiro</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="purchaseDescription">
+                                    Descrição da compra
+                                </label>
+
+                                <input type="text"
+                                       id="purchaseDescription"
+                                       maxlength="100"
+                                       required>
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="purchaseAmount">
+                                        Valor total (R$)
+                                    </label>
+
+                                    <input type="number"
+                                           id="purchaseAmount"
+                                           min="0.01"
+                                           step="0.01"
+                                           required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="purchaseInstallments">
+                                        Parcelas
+                                    </label>
+
+                                    <input type="number"
+                                           id="purchaseInstallments"
+                                           min="1"
+                                           max="48"
+                                           value="1"
+                                           required>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="purchaseDate">Data da compra</label>
+
+                                <input type="date"
+                                       id="purchaseDate"
+                                       required>
+                            </div>
+
+                            <button class="primary-button full-width"
+                                    type="submit">
+                                Registrar compra
+                            </button>
+
+                        </form>
+
+                    </article>
+
+                </div>
+
+                <div class="section-toolbar">
+                    <div>
+                        <h2>Meus cartões</h2>
+                        <p>Acompanhe os limites cadastrados.</p>
+                    </div>
+                </div>
+
+                <div id="cardsList" class="cards-grid">
+
+                    <div class="panel empty-state">
+                        Nenhum cartão cadastrado ainda.
+                    </div>
+
+                </div>
+
+                <article class="panel table-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h2>Compras e parcelas</h2>
+                            <p>Consulte as compras registradas.</p>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Compra</th>
+                                    <th>Cartão</th>
+                                    <th>Data</th>
+                                    <th>Valor total</th>
+                                    <th>Parcelas</th>
+                                    <th>Valor por parcela</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="cardPurchasesTable">
+                                <tr>
+                                    <td colspan="7" class="empty-state">
+                                        Suas compras aparecerão aqui.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!-- ================= RELATÓRIOS ================= -->
+            <section class="page" id="reports">
+
+                <div class="page-heading">
+                    <span class="eyebrow">KNOW YOUR NUMBERS ♡</span>
+                    <h1>Seus <em>relatórios.</em></h1>
+                    <p>Entenda seus hábitos e acompanhe sua evolução financeira.</p>
+                </div>
+
+                <article class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h2>Relatório mensal</h2>
+                            <p>Selecione o período que deseja analisar.</p>
+                        </div>
+
+                        <label class="month-selector">
+                            <span class="sr-only">Mês do relatório</span>
+                            <input type="month" id="reportMonth">
+                        </label>
+                    </div>
+
+                    <div class="summary-grid three-columns">
+
+                        <div class="summary-card">
+                            <span>Receitas</span>
+                            <h3 id="reportIncome">R$ 0,00</h3>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Despesas</span>
+                            <h3 id="reportExpenses">R$ 0,00</h3>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Resultado</span>
+                            <h3 id="reportBalance">R$ 0,00</h3>
+                        </div>
+
+                    </div>
+
+                    <div class="chart-container report-chart">
+                        <canvas id="monthlyReportChart"
+                                aria-label="Relatório financeiro mensal"
+                                role="img"></canvas>
+                    </div>
+
+                </article>
+
+                <article class="panel table-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h2>Despesas por categoria</h2>
+                            <p>Veja quanto foi gasto em cada categoria.</p>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Total gasto</th>
+                                    <th>Participação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="reportCategories">
+                                <tr>
+                                    <td colspan="3" class="empty-state">
+                                        Ainda não há dados para o relatório.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </article>
+
+                <button class="primary-button"
+                        type="button"
+                        id="exportReport">
+                    ↓ Exportar relatório CSV
+                </button>
+
+            </section>
+
+            <!-- ================= EXTRAS ================= -->
+            <section class="page" id="extras">
+
+                <div class="page-heading">
+                    <span class="eyebrow">A LITTLE ORGANIZATION, DARLING ✦</span>
+                    <h1>Seu espaço de <em>organização.</em></h1>
+                    <p>Calendário, orçamento e compromissos financeiros.</p>
+                </div>
+
+                <div class="content-grid">
+
+                    <article class="panel form-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Adicionar compromisso</h2>
+                                <p>Não deixe uma conta passar despercebida.</p>
+                            </div>
+                        </div>
+
+                        <form id="eventForm">
+
+                            <div class="form-group">
+                                <label for="eventTitle">Compromisso</label>
+
+                                <input type="text"
+                                       id="eventTitle"
+                                       maxlength="100"
+                                       placeholder="Ex.: Pagar internet"
+                                       required>
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="eventDate">Data</label>
+
+                                    <input type="date"
+                                           id="eventDate"
+                                           required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="eventType">Tipo</label>
+
+                                    <select id="eventType">
+                                        <option value="bill">Conta a pagar</option>
+                                        <option value="income">Recebimento</option>
+                                        <option value="other">Outro compromisso</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="eventAmount">
+                                    Valor (opcional)
+                                </label>
+
+                                <input type="number"
+                                       id="eventAmount"
+                                       min="0"
+                                       step="0.01"
+                                       placeholder="0,00">
+                            </div>
+
+                            <button class="primary-button full-width"
+                                    type="submit">
+                                Adicionar ao calendário ♡
+                            </button>
+
+                        </form>
+
+                    </article>
+
+                    <article class="panel form-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h2>Orçamento mensal</h2>
+                                <p>Defina seu limite de despesas.</p>
+                            </div>
+                        </div>
+
+                        <form id="monthlyBudgetForm">
+
+                            <div class="form-group">
+                                <label for="monthlyBudgetMonth">
+                                    Mês de referência
+                                </label>
+
+                                <input type="month"
+                                       id="monthlyBudgetMonth"
+                                       required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="monthlyBudgetLimit">
+                                    Limite de gastos (R$)
+                                </label>
+
+                                <input type="number"
+                                       id="monthlyBudgetLimit"
+                                       min="0"
+                                       step="0.01"
+                                       placeholder="0,00"
+                                       required>
+                            </div>
+
+                            <button class="primary-button full-width"
+                                    type="submit">
+                                Salvar meu limite
+                            </button>
+
+                        </form>
+
+                        <div class="budget-result">
+                            <span>Limite do mês selecionado</span>
+                            <strong id="extrasBudgetLimit">R$ 0,00</strong>
+
+                            <span>Despesas registradas</span>
+                            <strong id="extrasBudgetSpent">R$ 0,00</strong>
+
+                            <span>Saldo do orçamento</span>
+                            <strong id="extrasBudgetRemaining">R$ 0,00</strong>
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <article class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h2>Calendário financeiro</h2>
+                            <p>Seus compromissos em ordem de data.</p>
+                        </div>
+                    </div>
+
+                    <div id="calendarEvents" class="event-list">
+
+                        <div class="empty-state">
+                            Nenhum compromisso cadastrado. ♡
+                        </div>
+
+                    </div>
+
+                </article>
+
+                <article class="panel danger-zone">
+
+                    <div class="panel-header">
+                        <div>
+                            <h2>Privacidade e dados</h2>
+                            <p>Controle as informações guardadas neste navegador.</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Exporte uma cópia dos seus dados antes de limpar
+                        o armazenamento. Essa ação não pode ser desfeita.
+                    </p>
+
+                    <button class="danger-button"
+                            type="button"
+                            id="clearAllData">
+                        Apagar todos os meus dados
+                    </button>
+
+                </article>
+
+            </section>
+
+            <!-- RODAPÉ -->
+            <footer class="footer">
+
+                <div class="footer-brand">
+                    <span>GG</span>
+                    <p>Gossip Girl Finance</p>
+                </div>
+
+                <p>Organize seu dinheiro. Construa seus sonhos.</p>
+
+                <span class="footer-signature">XOXO, Gossip Girl ♡</span>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+    <!-- AVISOS -->
+    <div id="toast"
+         class="toast"
+         role="status"
+         aria-live="polite"></div>
+
+</body>
+</html>
